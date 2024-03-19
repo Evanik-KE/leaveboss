@@ -10,42 +10,50 @@ if (strlen($_SESSION['alogin']) == 1) {
 } else {
 
 
-    // Calculate total approved leave days of the employee
-    $sql = "SELECT SUM(DATEDIFF(todate, fromdate) + 1) AS total_approved_days FROM tblleaves WHERE Status = '1' AND empid = :empid";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':empid', $_SESSION['eid'], PDO::PARAM_INT);
-    $query->execute();
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    $total_approved_days = $result['total_approved_days'];
-
-    // Get the date when the leave was applied and the current date
-    $sql = "SELECT FromDate FROM tblleaves WHERE empid = :empid ORDER BY fromdate DESC LIMIT 1";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':empid', $_SESSION['eid'], PDO::PARAM_INT);
-    $query->execute();
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    $leave_fromdate = new DateTime($leave_date_result['fromdate']);
-    $current_date = new DateTime();
-
-    // Calculate the difference in days
-    $days_since_leave_begin = $leave_fromdate->diff($current_date)->days;
-
-    // Calculate remaining leave days dynamically
-    $remaining_leave_days = max(0, $total_approved_days - $days_since_leave_begin);
-
-    // Update remaining leave days in the database if needed
-    if ($remaining_leave_days > 0) {
-        // Update remaining leave days in the database
-        $sql = "UPDATE tblleaves SET remaining_days = :remaining_days WHERE empid = :empid";
+    try {
+        // Get the total approved days
+        $sql = "SELECT SUM(DATEDIFF(todate, fromdate) + 1) AS total_approved_days FROM tblleaves WHERE Status = '1' AND empid = :empid";
         $query = $dbh->prepare($sql);
-        $query->bindParam(':remaining_days', $remaining_leave_days, PDO::PARAM_INT);
         $query->bindParam(':empid', $_SESSION['eid'], PDO::PARAM_INT);
         $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        $total_approved_days = $result['total_approved_days'];
+    
+        // Get the date when the leave was applied and the current date
+        $sql = "SELECT FromDate FROM tblleaves WHERE empid = :empid ORDER BY FromDate DESC LIMIT 1";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':empid', $_SESSION['eid'], PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+    
+        if ($result) {
+            // Calculate the date when the leave began
+            $leave_fromdate = new DateTime($result['FromDate']);
+                
+            // Get the current date
+            $current_date = new DateTime();
+    
+            // Calculate the difference in days
+            $days_since_leave_begin = $leave_fromdate->diff($current_date)->days;
+    
+            // Calculate remaining leave days dynamically
+            $remaining_leave_days = max(0, $total_approved_days - $days_since_leave_begin);
+    
+            // Update remaining leave days in the database if needed
+            if ($remaining_leave_days !== $result['remaining_days']) {
+                // Update remaining leave days in the database
+                $sql = "UPDATE tblleaves SET remaining_days = :remaining_days WHERE empid = :empid";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':remaining_days', $remaining_leave_days, PDO::PARAM_INT);
+                $query->bindParam(':empid', $_SESSION['eid'], PDO::PARAM_INT);
+                $query->execute();
+            }
+        } else {
+            echo "No leave date found for the employee.";
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
-
-    // Output or use $remaining_leave_days as needed
-    // echo "Remaining leave days: $remaining_leave_days";
-
 
 ?>
 
