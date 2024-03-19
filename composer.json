@@ -1,0 +1,18 @@
+{
+    "name": "evanik/leave-boss",
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "twilio/sdk": "^7.15"
+    },
+    "autoload": {
+        "psr-4": {
+            "Evanik\\LeaveBoss\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Evans Ngebe",
+            "email": "evanskatana7025@gmail.com"
+        }
+    ]
+}
