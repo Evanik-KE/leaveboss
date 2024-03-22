@@ -41,7 +41,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         if ($lastInsertId) {
             $msg = "Employee has been added successfully";
         } else {
-            $error = "ERROR";
+            $error = "ERROR. Try again later";
         }
     }
 
@@ -91,14 +91,15 @@ if (strlen($_SESSION['alogin']) == 0) {
                 var confirmPassword = document.addemp.confirmpassword.value.trim();
 
                 // Validate first name and last name to contain only alphabetical characters
-                var nameRegex = /^[a-zA-Z]+$/;
+               var nameRegex = /^[a-zA-Z]*$/;
+
                 if (!nameRegex.test(firstName)) {
-                    alert("First name should contain only alphabetical characters.");
+                    alert("First name MUST contain ONLY alphabetical characters.");
                     document.addemp.firstName.focus();
                     return false;
                 }
                 if (!nameRegex.test(lastName)) {
-                    alert("Last name should contain only alphabetical characters.");
+                    alert("Last name MUST contain ONLY alphabetical characters.");
                     document.addemp.lastName.focus();
                     return false;
                 }
