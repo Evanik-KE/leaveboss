@@ -4,6 +4,7 @@ error_reporting(0);
 include('../includes/dbconn.php');
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
+    exit();
 } else {
     if (isset($_POST['add'])) {
         $empid = $_POST['empcode'];
