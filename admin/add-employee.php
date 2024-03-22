@@ -21,6 +21,15 @@ if (strlen($_SESSION['alogin']) == 0) {
         $status = 1;
 
 
+        $sql = "SELECT * FROM tblemployees WHERE EmailId = :email OR EmpId = :empid";
+        $query= $dbh->prepare($sql);
+        $query->bindParam(':email', $email, PDO::PARAM_STR);
+        $query->bindParam(':empid', $empid, PDO::PARAM_STR);
+        $query->execute();
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $error = "An employee with the same email or employee ID already exists!";
+        } else {
         $sql = "INSERT INTO tblemployees(EmpId,FirstName,LastName,EmailId,Password,Gender,Dob,Department,Address,City,County,Phonenumber,Status) VALUES(:empid,:fname,:lname,:email,:password,:gender,:dob,:department,:address,:city,:county,:mobileno,:status)";
         $query = $dbh->prepare($sql);
         $query->bindParam(':empid', $empid, PDO::PARAM_STR);
@@ -44,6 +53,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             $error = "ERROR. Try again later";
         }
     }
+}
 
 ?>
 
