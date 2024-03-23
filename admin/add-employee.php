@@ -23,7 +23,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
         $sql = "SELECT * FROM tblemployees WHERE EmailId = :email OR EmpId = :empid";
-        $query= $dbh->prepare($sql);
+        $query = $dbh->prepare($sql);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':empid', $empid, PDO::PARAM_STR);
         $query->execute();
@@ -31,30 +31,30 @@ if (strlen($_SESSION['alogin']) == 0) {
         if ($row) {
             $error = "An employee with the same email or employee ID already exists!";
         } else {
-        $sql = "INSERT INTO tblemployees(EmpId,FirstName,LastName,EmailId,Password,Gender,Dob,Department,Address,City,County,Phonenumber,Status) VALUES(:empid,:fname,:lname,:email,:password,:gender,:dob,:department,:address,:city,:county,:mobileno,:status)";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':empid', $empid, PDO::PARAM_STR);
-        $query->bindParam(':fname', $fname, PDO::PARAM_STR);
-        $query->bindParam(':lname', $lname, PDO::PARAM_STR);
-        $query->bindParam(':email', $email, PDO::PARAM_STR);
-        $query->bindParam(':password', $password, PDO::PARAM_STR);
-        $query->bindParam(':gender', $gender, PDO::PARAM_STR);
-        $query->bindParam(':dob', $dob, PDO::PARAM_STR);
-        $query->bindParam(':department', $department, PDO::PARAM_STR);
-        $query->bindParam(':address', $address, PDO::PARAM_STR);
-        $query->bindParam(':city', $city, PDO::PARAM_STR);
-        $query->bindParam(':county', $county, PDO::PARAM_STR);
-        $query->bindParam(':mobileno', $mobileno, PDO::PARAM_STR);
-        $query->bindParam(':status', $status, PDO::PARAM_STR);
-        $query->execute();
-        $lastInsertId = $dbh->lastInsertId();
-        if ($lastInsertId) {
-            $msg = "Employee has been added successfully";
-        } else {
-            $error = "ERROR. Try again later";
+            $sql = "INSERT INTO tblemployees(EmpId,FirstName,LastName,EmailId,Password,Gender,Dob,Department,Address,City,County,Phonenumber,Status) VALUES(:empid,:fname,:lname,:email,:password,:gender,:dob,:department,:address,:city,:county,:mobileno,:status)";
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':empid', $empid, PDO::PARAM_STR);
+            $query->bindParam(':fname', $fname, PDO::PARAM_STR);
+            $query->bindParam(':lname', $lname, PDO::PARAM_STR);
+            $query->bindParam(':email', $email, PDO::PARAM_STR);
+            $query->bindParam(':password', $password, PDO::PARAM_STR);
+            $query->bindParam(':gender', $gender, PDO::PARAM_STR);
+            $query->bindParam(':dob', $dob, PDO::PARAM_STR);
+            $query->bindParam(':department', $department, PDO::PARAM_STR);
+            $query->bindParam(':address', $address, PDO::PARAM_STR);
+            $query->bindParam(':city', $city, PDO::PARAM_STR);
+            $query->bindParam(':county', $county, PDO::PARAM_STR);
+            $query->bindParam(':mobileno', $mobileno, PDO::PARAM_STR);
+            $query->bindParam(':status', $status, PDO::PARAM_STR);
+            $query->execute();
+            $lastInsertId = $dbh->lastInsertId();
+            if ($lastInsertId) {
+                $msg = "Employee has been added successfully";
+            } else {
+                $error = "ERROR. Try again later";
+            }
         }
     }
-}
 
 ?>
 
@@ -102,7 +102,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 var confirmPassword = document.addemp.confirmpassword.value.trim();
 
                 // Validate first name and last name to contain only alphabetical characters
-               var nameRegex = /^[a-zA-Z]*$/;
+                var nameRegex = /^[a-zA-Z]*$/;
 
                 if (!nameRegex.test(firstName)) {
                     alert("First name MUST contain ONLY alphabetical characters.");
@@ -116,8 +116,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                 }
 
                 // Validate password
-                if (password.length < 8) {
-                    alert("Password must be at least 8 characters long.");
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+
+
+                if (!passwordRegex.test(password)) {
+                    alert("Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*).");
                     document.addemp.password.focus();
                     return false;
                 }
