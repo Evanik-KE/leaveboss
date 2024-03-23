@@ -27,17 +27,17 @@ if (strlen($_SESSION['alogin']) == 1) {
         $result = $query->fetch(PDO::FETCH_ASSOC);
     
         if ($result) {
-            // Calculate the date when the leave began
+            // Calculate the date when the leave begins
             $leave_fromdate = new DateTime($result['FromDate']);
                 
             // Get the current date
             $current_date = new DateTime();
     
             // Calculate the difference in days
-            $days_since_leave_begin = $leave_fromdate->diff($current_date)->days;
+            $days_until_leave_starts = $current_date->diff($leave_fromdate)->days;
     
             // Calculate remaining leave days dynamically
-            $remaining_leave_days = max(0, $total_approved_days - $days_since_leave_begin);
+            $remaining_leave_days = max(0, $total_approved_days - max(0, $days_until_leave_starts));
     
             // Update remaining leave days in the database if needed
             if ($remaining_leave_days !== $result['remaining_days']) {
@@ -54,6 +54,7 @@ if (strlen($_SESSION['alogin']) == 1) {
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
+    
 
 ?>
 
