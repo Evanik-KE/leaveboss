@@ -490,7 +490,7 @@
 }
 
 .notify-title a {
-  float: right;
+  /* float: right; */
   display: inline-block;
   color: #ffee1d;
   font-size: 13px;
