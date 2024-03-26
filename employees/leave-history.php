@@ -138,7 +138,8 @@
                                     <table id="dataTable" class="table table-hover progress-table text-center">
                                         <thead class="bg-light text-capitalize">
                                             <tr>
-                                                <th>#</th>
+                                            <th></th>
+                                                <th>#</th>                                             
                                                 <th width="150">Type</th>
                                                 <th>Conditions</th>
                                                 <th>From</th>
@@ -153,7 +154,7 @@
                                         <tbody>
                                         <?php 
                                         $eid=$_SESSION['eid'];
-                                        $sql = "SELECT LeaveType,ToDate,FromDate,Description,PostingDate,AdminRemarkDate,AdminRemark,Status,Reliever from tblleaves where empid=:eid";
+                                        $sql = "SELECT id, LeaveType,ToDate,FromDate,Description,PostingDate,AdminRemarkDate,AdminRemark,Status,Reliever from tblleaves where empid=:eid";
                                         $query = $dbh -> prepare($sql);
                                         $query->bindParam(':eid',$eid,PDO::PARAM_STR);
                                         $query->execute();
@@ -164,7 +165,12 @@
                                         {  ?> 
 
                                             <tr>
-                                            <td> <?php echo htmlentities($cnt);?></td>
+                                            <!-- <td><a href="#">Select</a></td> -->
+                                            <!-- <td><button class="btn btn-secondary btn-sm" onclick="showLeaveDetails(<?php echo htmlentities($result->id); ?>)">View Details</button></td> -->
+                                            <!-- <td><a href="get-leave-details.php?leaveid=<?php echo htmlentities($result->id);?>" class="btn btn-secondary btn-sm">View Details</a></td> -->
+                                            <td><a href="get-leave-details.php?leaveid=<?php echo htmlentities($result->id);?>">Select</a></td>
+
+                                            <td> <?php echo htmlentities($cnt);?></td>                                            
                                             <td><?php echo htmlentities($result->LeaveType);?></td>
                                             <td><?php echo htmlentities($result->Description);?></td>
                                             <td><?php echo htmlentities($result->FromDate);?></td>
@@ -242,8 +248,8 @@
     <!-- others plugins -->
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/scripts.js"></script>
+    <!-- <script> -->
 </body>
-
 </html>
 
 <?php } ?> 
