@@ -165,11 +165,7 @@
                                         {  ?> 
 
                                             <tr>
-                                            <!-- <td><a href="#">Select</a></td> -->
-                                            <!-- <td><button class="btn btn-secondary btn-sm" onclick="showLeaveDetails(<?php echo htmlentities($result->id); ?>)">View Details</button></td> -->
-                                            <!-- <td><a href="get-leave-details.php?leaveid=<?php echo htmlentities($result->id);?>" class="btn btn-secondary btn-sm">View Details</a></td> -->
                                             <td><a href="get-leave-details.php?leaveid=<?php echo htmlentities($result->id);?>">Select</a></td>
-
                                             <td> <?php echo htmlentities($cnt);?></td>                                            
                                             <td><?php echo htmlentities($result->LeaveType);?></td>
                                             <td><?php echo htmlentities($result->Description);?></td>
