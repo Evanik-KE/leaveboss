@@ -64,21 +64,36 @@ if (strlen($_SESSION['alogin']) == 1) {
                 <!-- modernizr css -->
                 <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
                 <style>
-                    body{
+                    h1 {
+                        font-family: "Lato", sans-serif;
+                    }
+
+                    body {
                         margin: 20px;
                         padding: 20px;
+                        font-size: 24px;
                     }
-                    /* Hide the button when printing */
+
                     @media print {
-                        button {
-                            display: none;
+                        button.btn.btn-primary.blue-background {
+                            display: none !important;
                         }
+                    }
+
+                    /* Set the page size to A4 */
+                    @page {
+                        size: A4;
                     }
                 </style>
             </head>
 
             <body>
-                <h1>Leave Report</h1>
+                <div class="container text-center">
+                    <h1>LeaveBoss</h1>
+                    <br>
+                    <hr><hr>
+                </div>
+                <h3>Leave Report</h3>
                 <p><strong>Leave ID:</strong> <?php echo $leaveDetails['lid']; ?></p>
                 <p><strong>Employee Name:</strong> <?php echo $leaveDetails['FirstName'] . ' ' . $leaveDetails['LastName']; ?></p>
                 <p><strong>Employee ID:</strong> <?php echo $leaveDetails['EmpId']; ?></p>
@@ -97,6 +112,10 @@ if (strlen($_SESSION['alogin']) == 1) {
                 <p><strong>Admin Remark Date:</strong> <?php echo $leaveDetails['AdminRemarkDate']; ?></p>
                 <br>
                 <button class="btn btn-primary blue-background" onclick="window.print()">Print Leave Report</button>
+                <hr>
+                <div>
+                    <p class="text-center">Thanks for trusting LeaveBoss Team!</p>
+                </div>
                 <!-- Add a link to download the page as a PDF -->
                 <!-- Update the link to include the leave ID as a query parameter -->
                 <!-- <a href="get-leave-details.php?leaveid=<?php echo $leaveid; ?>" id="downloadPDF">Download Report</a> -->
