@@ -165,7 +165,7 @@
                                         {  ?> 
 
                                             <tr>
-                                            <td><a href="get-leave-details.php?leaveid=<?php echo htmlentities($result->id);?>">Select</a></td>
+                                            <td><a href="leave-report.php?leaveid=<?php echo htmlentities($result->id);?>">Select</a></td>
                                             <td> <?php echo htmlentities($cnt);?></td>                                            
                                             <td><?php echo htmlentities($result->LeaveType);?></td>
                                             <td><?php echo htmlentities($result->Description);?></td>
