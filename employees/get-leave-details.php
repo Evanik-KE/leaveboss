@@ -96,7 +96,7 @@ if (strlen($_SESSION['alogin']) == 1) {
                 <p><strong>Admin Remark:</strong> <?php echo $leaveDetails['AdminRemark']; ?></p>
                 <p><strong>Admin Remark Date:</strong> <?php echo $leaveDetails['AdminRemarkDate']; ?></p>
                 <br>
-                <button onclick="window.print()">Print Leave Report</button>
+                <button class="btn btn-primary blue-background" onclick="window.print()">Print Leave Report</button>
                 <!-- Add a link to download the page as a PDF -->
                 <!-- Update the link to include the leave ID as a query parameter -->
                 <!-- <a href="get-leave-details.php?leaveid=<?php echo $leaveid; ?>" id="downloadPDF">Download Report</a> -->
