@@ -3,7 +3,7 @@
         'name' => 'evanik/leave-boss',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '54e3a3d3d56fa1024670ec92fffab4b347febf16',
+        'reference' => '8029f26f307ade0f4496e9005fac6a46b9deeb27',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'evanik/leave-boss' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '54e3a3d3d56fa1024670ec92fffab4b347febf16',
+            'reference' => '8029f26f307ade0f4496e9005fac6a46b9deeb27',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
