@@ -49,7 +49,7 @@ if (strlen($_SESSION['alogin']) == 1) {
                 $query->execute();
             }
         } else {
-            echo "No leave date found for the employee.";
+            // echo "No leave date found for the employee.";
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
