@@ -116,14 +116,20 @@ if (strlen($_SESSION['alogin']) == 0) {
                 }
 
                 // Validate password
-                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-
-
-                if (!passwordRegex.test(password)) {
-                    alert("Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*).");
+                if (password.length < 8) {
+                    alert("Password must be at least 8 characters long.");
                     document.addemp.password.focus();
                     return false;
                 }
+                // // Validate password
+                // var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+
+
+                // if (!passwordRegex.test(password)) {
+                //     alert("Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character (!@#$%^&*).");
+                //     document.addemp.password.focus();
+                //     return false;
+                // }
 
                 // Check if password and confirm password match
                 if (password !== confirmPassword) {
