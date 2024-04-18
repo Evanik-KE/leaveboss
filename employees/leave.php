@@ -11,7 +11,19 @@ if (strlen($_SESSION['emplogin']) == 0) {
     header('location:../index.php');
 } else {
     if (isset($_POST['apply'])) {
+        $currentDate = date('m-d-Y'); // Get current date in 'mm-dd-yyyy' format
+        $fromdate = $_POST['fromdate'];
+    
+        // Convert the submitted date to the same format as the current date
+        $fromdateFormatted = date('m-d-Y', strtotime($fromdate));
+    
+        if ($fromdateFormatted < $currentDate) {
+            // If the start date is past the current date, display an error message
+            $error = "Please enter a start date that is not in the past.";
+        } else {
+          
         $empid = $_SESSION['eid'];
+        
 
         // Fetch employee's email and full name from the database
         // $sql = "SELECT EmailId FROM tblemployees WHERE id = :empid";
@@ -84,6 +96,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
         } else {
             $error = "Sorry, could not process this time. Please try again later.";
         }
+    }
     }
 ?>
 
